@@ -1,0 +1,56 @@
+BCC-CSM2-MR:
+  color: '#8c564b'
+  modelname: BCC-CSM2-MR
+  path: null
+  paths:
+  - /home/nate/.esgf/CMIP6/CMIP/BCC/BCC-CSM2-MR/historical/r1i1p1f1/Lmon/gpp/gn/v20181114
+  - /home/nate/.esgf/CMIP6/GMMIP/BCC/BCC-CSM2-MR/hist-resIPO/r1i1p1f1/fx/sftlf/gn/v20190613/
+  - /home/nate/.esgf/CMIP6/GMMIP/BCC/BCC-CSM2-MR/hist-resIPO/r1i1p1f1/fx/areacella/gn/v20190613
+CESM2:
+  color: '#9467bd'
+  modelname: CESM2
+  path: null
+  paths:
+  - /home/nate/.esgf/CMIP6/CMIP/NCAR/CESM2/historical/r1i1p1f1/Lmon/gpp/gn/v20190308
+  - /home/nate/.esgf/CMIP6/CMIP/NCAR/CESM2/historical/r1i1p1f1/fx/areacella/gn/v20190308
+  - /home/nate/.esgf/CMIP6/CMIP/NCAR/CESM2/historical/r1i1p1f1/fx/sftlf/gn/v20190308
+CanESM5:
+  color: '#d62728'
+  modelname: CanESM5
+  path: null
+  paths:
+  - /home/nate/.esgf/CMIP6/CMIP/CCCma/CanESM5/historical/r1i1p1f1/Lmon/gpp/gn/v20190429
+  - /home/nate/.esgf/CMIP6/CMIP/CCCma/CanESM5/historical/r1i1p1f1/fx/areacella/gn/v20190429
+  - /home/nate/.esgf/CMIP6/CMIP/CCCma/CanESM5/historical/r1i1p1f1/fx/sftlf/gn/v20190429
+GFDL-ESM4:
+  color: '#1f77b4'
+  modelname: GFDL-ESM4
+  path: null
+  paths:
+  - /home/nate/.esgf/CMIP6/CMIP/NOAA-GFDL/GFDL-ESM4/historical/r1i1p1f1/Lmon/gpp/gr1/v20190726
+  - /home/nate/.esgf/CMIP6/CMIP/NOAA-GFDL/GFDL-ESM4/historical/r1i1p1f1/fx/areacella/gr1/v20190726
+  - /home/nate/.esgf/CMIP6/CMIP/NOAA-GFDL/GFDL-ESM4/historical/r1i1p1f1/fx/sftlf/gr1/v20190726
+IPSL-CM6A-LR:
+  color: '#ff7f0e'
+  modelname: IPSL-CM6A-LR
+  path: null
+  paths:
+  - /home/nate/.esgf/CMIP6/CMIP/IPSL/IPSL-CM6A-LR/historical/r1i1p1f1/Lmon/gpp/gr/v20180803
+  - /home/nate/.esgf/CMIP6/CMIP/IPSL/IPSL-CM6A-LR/historical/r1i1p1f1/fx/areacella/gr/v20180803
+  - /home/nate/.esgf/CMIP6/CMIP/IPSL/IPSL-CM6A-LR/historical/r1i1p1f1/fx/sftlf/gr/v20180803
+NorESM2-LM:
+  color: '#2ca02c'
+  modelname: NorESM2-LM
+  path: null
+  paths:
+  - /home/nate/.esgf/CMIP6/CMIP/NCC/NorESM2-LM/historical/r1i1p1f1/Lmon/gpp/gn/v20190917
+  - /home/nate/.esgf/CMIP6/CMIP/NCC/NorESM2-LM/historical/r1i1p1f1/fx/areacella/gn/v20190815
+  - /home/nate/.esgf/CMIP6/CMIP/NCC/NorESM2-LM/historical/r1i1p1f1/fx/sftlf/gn/v20191108
+UKESM1-0-LL:
+  color: '#e377c2'
+  modelname: UKESM1-0-LL
+  path: null
+  paths:
+  - /home/nate/.esgf/CMIP6/CMIP/MOHC/UKESM1-0-LL/historical/r1i1p1f2/Lmon/gpp/gn/v20190627
+  - /home/nate/.esgf/CMIP6/CMIP/MOHC/UKESM1-0-LL/piControl/r1i1p1f2/fx/areacella/gn/v20190705
+  - /home/nate/.esgf/CMIP6/CMIP/MOHC/UKESM1-0-LL/piControl/r1i1p1f2/fx/sftlf/gn/v20190705
