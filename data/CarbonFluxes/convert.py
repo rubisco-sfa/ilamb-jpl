@@ -1,3 +1,6 @@
+import os
+import time
+
 import cftime as cf
 import ilamb3.dataset as dset
 import intake
@@ -130,6 +133,12 @@ def plot_vs_Hoffman(ds: xr.Dataset):
 
 if __name__ == "__main__":
 
+    download_stamp = time.strftime(
+        "%Y-%m-%d",
+        time.localtime(os.path.getmtime("EnsMean_gridded_fluxes_2015-2020.nc4")),
+    )
+    generate_stamp = time.strftime("%Y-%m-%d")
+
     # Read in the JPL outputs and make CF-compliant
     jpl = cf_compliant(
         xr.merge(
@@ -141,6 +150,26 @@ if __name__ == "__main__":
             ]
         )
     )
+    jpl.attrs = {
+        "title": "OCO-2-V10-MIP",
+        "version": "1",
+        "institutions": "Jet Propulsion Laboratory, California Institute of Technology, Colorado State University, NASA Goddard Space Flight Center, Global Modeling and Assimilation Office, Greenbelt, MD, USA, School of Mathematics and Applied Statistics, University of Wollongong, Wollongong, NSW, Australia, Laboratoire des Sciences du Climat et de L'Environnement, LSCE/IPSL, CEA-CNRS-UVSQ, Université Paris-Saclay, 91191 Gif-sur-Yvette, France, Department of Physics, University of Toronto, Toronto, Ontario, Canada, Satellite Observation Center, Earth System Division, National Institute for Environmental Studies, Tsukuba, Japan, Department of Environmental Health and Engineering, Johns Hopkins University, Baltimore, MD, USA, Centre for Atmospheric Sciences, Indian Institute of Technology Delhi, New Delhi, India, Department of Atmospheric and Oceanic Science, University of Maryland, College Park, MD, USA, Laboratory of Numerical Modeling for Atmospheric Sciences & Geophysical Fluid Dynamics, Institute of Atmospheric Physics, Chinese Academy of Sciences, Beijing, China, NOAA Global Monitoring Laboratory, Boulder, CO, USA",
+        "sources": "Ensemble mean of 13 top-down inversion models assimilating both in situ and land nadir and land glint satellite CO2 observations from OCO-2.",
+        "history": f"""
+{download_stamp}: downloaded files from https://gml.noaa.gov/ccgg/arc/?id=150;
+{generate_stamp}: converted to ILAMB-ready netCDF""",
+        "references": """
+@ARTICLE{OCO2,
+  author = {Byrne, B., Baker, D. F., Basu, S., Bertolacci, M., Bowman, K. W., Carroll, D., Chatterjee, A., Chevallier, F., Ciais, P., Cressie, N., Crisp, D., Crowell, S., Deng, F., Deng, Z., Deutscher, N. M., Dubey, M. K., Feng, S., García, O. E., Griffith, D. W. T., Herkommer, B., Hu, L., Jacobson, A. R., Janardanan, R., Jeong, S., Johnson, M. S., Jones, D. B. A., Kivi, R., Liu, J., Liu, Z., Maksyutov, S., Miller, J. B., Miller, S. M., Morino, I., Notholt, J., Oda, T., O'Dell, C. W., Oh, Y.-S., Ohyama, H., Patra, P. K., Peiro, H., Petri, C., Philip, S., Pollard, D. F., Poulter, B., Remaud, M., Schuh, A., Sha, M. K., Shiomi, K., Strong, K., Sweeney, C., Té, Y., Tian, H., Velazco, V. A., Vrekoussis, M., Warneke, T., Worden, J. R., Wunch, D., Yao, Y., Yun, J., Zammit-Mangion, A., and Zeng, N.},
+  title= {National CO2 budgets (2015-2020) inferred from atmospheric CO2 observations in support of the global stocktake},
+  journal = {Earth Syst. Sci. Data},
+  volume = {15},
+  year = {2023},
+  page = {963-1004},
+  doi = {https://doi.org/10.5194/essd-15-963-2023}
+}
+""",
+    }
     jpl.pint.dequantify().to_netcdf(
         "OCO_carbon_fluxes.nc", encoding={key: {"zlib": True} for key in jpl}
     )
