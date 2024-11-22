@@ -10,10 +10,8 @@ import numpy as np
 import xarray as xr
 import cftime as cf
 
-ds = xr.open_dataset("MODELS/CARDAMOM/GPP4ILAMBv1.nc")
-vname = "gpp"
 
-if True:
+def convert_cardamom(ds: xr.Dataset, vname: str) -> None:
 
     # We will build up the converted dataset in here.
     out = {}
@@ -86,3 +84,8 @@ if True:
             vname: {"zlib": True},
         },
     )
+
+
+if __name__ == "__main__":
+
+    convert_cardamom(xr.open_dataset("_raw/GPP4ILAMBv1.nc"), "gpp")
