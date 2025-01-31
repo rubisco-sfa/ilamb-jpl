@@ -38,6 +38,7 @@ def cf_compliant(ds: xr.Dataset) -> xr.Dataset:
     # the units are grams per square meter per year.
     for var in ds:
         ds[var].attrs["units"] = "g m-2 year-1"
+        ds[var] *= -1
     ds["time_bounds"] = (("time", "nb"), tb)
 
     # Let's rename to CMOR variable names (compatible with CMIP experiments).
@@ -47,12 +48,15 @@ def cf_compliant(ds: xr.Dataset) -> xr.Dataset:
 
     # Since your data comes with std, let's encode that as well. ILAMB can use this as a
     # measure of uncertainty.
+    ds = ds.pint.dequantify()
     for var in ds:
         std = f"{var}_std"
         if std in ds:
             ds[var].attrs["ancillary_variables"] = f"{var}_std"
             ds[std].attrs["standard_name"] = f"{var} standard_error"
-    return ds.pint.quantify()
+            ds[var].attrs["units"] = "g m-2 year-1"
+            ds[std].attrs["units"] = "g m-2 year-1"
+    return ds
 
 
 def plot_global_totals():
@@ -170,8 +174,14 @@ if __name__ == "__main__":
 }
 """,
     }
-    jpl.pint.dequantify().to_netcdf(
-        "OCO_carbon_fluxes.nc", encoding={key: {"zlib": True} for key in jpl}
+
+    encoding = {key: {"zlib": True} for key in jpl}
+    encoding.update(
+        {
+            "time": {"units": "days since 2010-01-01", "bounds": "time_bounds"},
+            "time_bounds": {"units": "days since 2010-01-01"},
+        }
     )
+    jpl.pint.dequantify().to_netcdf("OCO_carbon_fluxes.nc", encoding=encoding)
 
     plot_vs_Hoffman(jpl)

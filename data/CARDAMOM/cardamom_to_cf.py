@@ -1,7 +1,4 @@
 """
-- Especially since your resolution is quite coarse, do you have a variable which
-  represents the underlying land fractions? 
-- Are the output quantities averaged over land or over the cell area?
 - We will need the same title, version, etc. for the attributes.
 """
 
@@ -9,9 +6,12 @@ import cf_xarray  # noqa
 import numpy as np
 import xarray as xr
 import cftime as cf
+from ilamb3.dataset import compute_cell_measures
 
 
-def convert_cardamom(ds: xr.Dataset, vname: str) -> None:
+def convert_cardamom(
+    ds: xr.Dataset, vname: str, land_frac: xr.DataArray | None = None
+) -> None:
 
     # We will build up the converted dataset in here.
     out = {}
@@ -67,6 +67,13 @@ def convert_cardamom(ds: xr.Dataset, vname: str) -> None:
         dims=("time", "nb"),
     )
 
+    # If land fractions were provided, then compute cell measures
+    if land_frac is not None:
+        cm = compute_cell_measures(land_frac).pint.dequantify()
+        cm *= land_frac
+        cm.attrs["units"] = "m2"
+        out["cell_measures"] = cm
+
     # As a reference product, in ILAMB we provide the following information in order for
     # users to understand what the data represent.
     out.attrs = {
@@ -88,4 +95,8 @@ def convert_cardamom(ds: xr.Dataset, vname: str) -> None:
 
 if __name__ == "__main__":
 
-    convert_cardamom(xr.open_dataset("_raw/GPP4ILAMBv1.nc"), "gpp")
+    convert_cardamom(
+        xr.open_dataset("_raw/GPP4ILAMBv1.nc"),
+        "gpp",
+        land_frac=xr.open_dataset("_raw/CARDAMOM-MAPS_GC4x5_LAND_SEA_FRAC.nc")["data"],
+    )
